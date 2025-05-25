@@ -14,13 +14,13 @@
     </properties>
 
     <dependencies>
-
         <!-- Selenium Java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>4.21.0</version>
         </dependency>
+
         <!-- JUnit 5 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -49,7 +49,7 @@
             <version>2.24.0</version>
         </dependency>
 
-        <!-- SLF4J Logger (Optional but removes warning) -->
+        <!-- Logger -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -59,7 +59,7 @@
 
     <build>
         <plugins>
-            <!-- Maven Surefire Plugin to run tests -->
+            <!-- Run JUnit Tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -71,14 +71,26 @@
                             junit.jupiter.execution.parallel.enabled=true
                         </configurationParameters>
                     </properties>
+                    <systemPropertyVariables>
+                        allure.results.directory=target/allure-results
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
 
-            <!-- Allure Reporting Plugin -->
+            <!-- Allure Report -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.11.2</version>
+                <executions>
+                    <execution>
+                        <id>allure-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
